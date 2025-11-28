@@ -51,7 +51,7 @@ This document outlines the naming conventions used for schemas, tables, views, c
 | Pattern     | Meaning                           | Example(s)                              |
 |-------------|-----------------------------------|-----------------------------------------|
 | `dim_`      | Dimension table                   | `dim_date`, `dim_campaign`              |
-| `fact_`     | Fact table                        | `fact_spend`, `fact_touchpath           |
+| `fact_`     | Fact table                        | `fact_touchpoints`, `fact_touchpath`    |
 | `report_`   | Report table                      |                                         |
  
 ## **Column Naming Conventions**
