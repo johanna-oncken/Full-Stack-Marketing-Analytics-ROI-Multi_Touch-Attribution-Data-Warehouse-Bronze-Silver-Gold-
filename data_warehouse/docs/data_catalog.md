@@ -19,7 +19,7 @@ The Gold Layer is the business-level data representation, structured to support 
 | month_name       | VARCHAR(50)   | The name of the month (e.g., 'January') used for user-friendly reporting.                     |
 | week             | INT           | The ISO week number(1-53) used for weekly analytics and reporting cycles.                     |
 | day              | INT           | The day of the month (1-31) used for daily reporting.                                         |
-| day_name         | VARCHAR       | The name of the weekday (e.g., 'Monday') for readable time-based insights.                    |
+| day_name         | VARCHAR(50)   | The name of the weekday (e.g., 'Monday') for readable time-based insights.                    |
 | is_weekend       | BIT           | A flag indicating whether the date falls on a weekend, supporting behavior analysis.          |
 
 ---
@@ -61,5 +61,158 @@ The Gold Layer is the business-level data representation, structured to support 
 | channel_name        | NVARCHAR(50)  | The human-readable name of the channel (e.g., "Facebook", "Email") used for reporting.        |
 | category            | NVARCHAR(50)  | Groups marketing channels into broader logical categories (e.g., Paid Search).                |
  
+---
+
+### 5. **gold.fact_spend**
+- **Purpose:** Tracks daily marketing spend per campaign and channel to support ROI, budget, and attribution analysis.
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| spend_key           | INT           | Surrogate key uniquely identifying each spend record.                                         |
+| spend_date          | DATE          | Date on which the spend occurred.                                                             |
+| date_key            | INT           | Foreign key linking the spend to the calendar dimension.                                      | 
+| channel             | NVARCHAR(50)  | Marketing channel where the spend was allocated.                                              |
+| campaign_name       | NVARCHAR(100) | Name of the campaign associated with the spend.                                               |
+| campaign_id         | INT           | Natural campaign identifier used for joining with dim_campaign.                               |
+| objective           | NVARCHAR(50)  | Marketing objective the spend is intended to support (e.g., Awareness, Conversion).           |
+| spend               | DECIMAL(10,2) | Amount of money spent on the given date and campaign.                                         |
+ 
+---
+
+### 6. **gold.fact_clicks**
+- **Purpose:** Stores all ad click events to measure engagement, acquisition efficiency, and campaign performance.
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| clicks_key          | INT           | Surrogate key uniquely identifying each click record.                                         |
+| click_id            | INT           | Natural key representing the raw click event.                                                 |
+| click_timestamp     | DATETIME2     | Timestamp when the click occurred                                                             |
+| date_key            | INT           | Foreign key to the calendar dimension for the click date.                                     |
+| user_id             | INT           | User who clicked the ad.                                                                      |
+| click_channel       | NVARCHAR(50)  | Channel where the click originated.                                                           |
+| campaign_id         | INT           | Campaign associated with the click.                                                           |
+| acquisition_channel | NVARCHAR(50)  | User’s first-touch channel, used for attribution and journey analysis.                        |
+ 
+---
+
+### 7. **gold.fact_sessions**
+- **Purpose:** Captures all website session activity to analyze user behavior, engagement, and channel performance.
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| session_key         | INT           | Surrogate key uniquely identifying each session.                                              |
+| session_id          | INT           | Natural key representing the session event.                                               |
+| user_id             | INT           | User associated with the session.                                                             |
+| device_category     | NVARCHAR(50)  | Device type used in the session (Mobile, Desktop, Tablet).                                    |
+| source_channel      | NVARCHAR(50)  | Channel that initiated the session.                                                           |
+| acquisition_channel | NVARCHAR(50)  | First-touch channel for the user.                                                             |
+| date_key            | INT           | Foreign key linking the session to the calendar dimension.                                    |
+| session_date        | DATE          | Date of the session.                                                                          |
+| session_start       | DATETIME2     | Exact timestamp when the session started.                                                     |
+| pages_viewed        | INT           | Count of pages viewed in the session.                                                         |
+ 
+---
+
+### 8. **gold.fact_touchpoints**
+- **Purpose:** Captures all user marketing touchpoints to support multi-touch attribution and journey reconstruction.
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| touchpoint_key      | INT           | Surrogate key uniquely identifying each touchpoint.                                           |
+| user_id             | INT           | User who generated the touchpoint.                                                            |
+| tp_date             | DATE          | Date of the touchpoint.                                                                       |
+| touchpoint_time     | DATETIME2     | Exact timestamp of the touchpoint event.                                                      |
+| date_key            | INT           | Foreign key to the calendar dimension.                                                        |
+| channel             | NVARCHAR(50)  | Channel through which the touchpoint occurred.                                                |
+| campaign_id         | INT           | Campaign associated with the touchpoint.                                                      |
+| campaign_name       | NVARCHAR(50)  | Name of the campaign associated with the touchpoint.                                          |
+| interaction_type    | NVARCHAR(50)  | Type of interaction (View, Impression, Click).                                                |
+
+---
+
+### 9. **gold.fact_purchases**
+- **Purpose:** Tracks all customer purchases to measure revenue, conversion behavior, and campaign effectiveness.
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                                      |
+| purchase_id         | INT           | Natural purchase identifier representing the purchase event                                   |
+| user_id             | INT           | User who made the purchase.                                                                   |
+| purchase_date       | DATE          | Date on which the purchase occurred.                                                          |
+| date_key            | INT           | Foreign key linking to the calendar dimension.                                                |
+| revenue             | DECIMAL(10,2) | Revenue amount generated by the purchase.                                                     |
+| channel_last_touch  | NVARCHAR(50)  | Last marketing channel touched before conversion.                                             |
+| acquisition_channel | NVARCHAR(50)  | User’s first-touch channel.                                                                   |
+| acquisition_date    | DATE          | Date of the first-touch acquisition event.                                                    |
+| acquistiion_campaign| INT           | Campaign tied to the user’s acquisition.                                                      |
+  
+---
+
+
+
+### 10. **gold.fact_touchpath**
+- **Purpose:** 
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
+| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
+| user_id             | INT           | User who made the purchase.               |
+| purchase_date       | DATE          |                |
+| date_key            | INT           |                |
+| revenue             | DECIMAL(10,2) |                |
+| channel_last_touch  | NVARCHAR(50)  |                |
+| acquisition_channel | NVARCHAR(50)  |                |
+| acquisition_date    | DATE          |                |
+| acquistiion_campaign| INT           |                |
+  
+---
+
+
+
+### 11. **gold.fact_attribution_linear**
+- **Purpose:** 
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
+| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
+| user_id             | INT           | User who made the purchase.               |
+| purchase_date       | DATE          |                |
+| date_key            | INT           |                |
+| revenue             | DECIMAL(10,2) |                |
+| channel_last_touch  | NVARCHAR(50)  |                |
+| acquisition_channel | NVARCHAR(50)  |                |
+| acquisition_date    | DATE          |                |
+| acquistiion_campaign| INT           |                |
+  
+---
+
+
+
+### 12. **gold.fact_attribution_last_touch**
+- **Purpose:** 
+- **Columns:**
+
+| Column Name         | Data Type     | Description                                                                                   |
+|---------------------|---------------|-----------------------------------------------------------------------------------------------|
+| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
+| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
+| user_id             | INT           | User who made the purchase.               |
+| purchase_date       | DATE          |                |
+| date_key            | INT           |                |
+| revenue             | DECIMAL(10,2) |                |
+| channel_last_touch  | NVARCHAR(50)  |                |
+| acquisition_channel | NVARCHAR(50)  |                |
+| acquisition_date    | DATE          |                |
+| acquistiion_campaign| INT           |                |
+  
 ---
 
