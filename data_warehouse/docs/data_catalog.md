@@ -58,7 +58,7 @@ The Gold Layer is the business-level data representation, structured to support 
 | Column Name         | Data Type     | Description                                                                                   |
 |---------------------|---------------|-----------------------------------------------------------------------------------------------|
 | channel_key         | INT           | Surrogate primary key that uniquely identifies each marketing channel.                        |
-| channel_name        | NVARCHAR(50)  | The human-readable name of the channel (e.g., "Facebook", "Email") used for reporting.        |
+| channel_name        | NVARCHAR(50)  | The readable name of the channel (e.g., "Facebook Ads", "Email") used for reporting.          |
 | category            | NVARCHAR(50)  | Groups marketing channels into broader logical categories (e.g., Paid Search).                |
  
 ---
@@ -141,7 +141,7 @@ The Gold Layer is the business-level data representation, structured to support 
 | Column Name         | Data Type     | Description                                                                                   |
 |---------------------|---------------|-----------------------------------------------------------------------------------------------|
 | purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                                      |
-| purchase_id         | INT           | Natural purchase identifier representing the purchase event                                   |
+| purchase_id         | INT           | Natural purchase identifier representing the purchase event  .                                 |
 | user_id             | INT           | User who made the purchase.                                                                   |
 | purchase_date       | DATE          | Date on which the purchase occurred.                                                          |
 | date_key            | INT           | Foreign key linking to the calendar dimension.                                                |
@@ -149,70 +149,57 @@ The Gold Layer is the business-level data representation, structured to support 
 | channel_last_touch  | NVARCHAR(50)  | Last marketing channel touched before conversion.                                             |
 | acquisition_channel | NVARCHAR(50)  | User’s first-touch channel.                                                                   |
 | acquisition_date    | DATE          | Date of the first-touch acquisition event.                                                    |
-| acquistiion_campaign| INT           | Campaign tied to the user’s acquisition.                                                      |
+| acquistiion_campaign| INT           | Marketing campaign tied to the user’s acquisition.                                                      |
   
 ---
-
-
 
 ### 10. **gold.fact_touchpath**
-- **Purpose:** 
+- **Purpose:** Reconstructs the user’s marketing journey leading up to a purchase, with ordered touchpoints for attribution.
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
 |---------------------|---------------|-----------------------------------------------------------------------------------------------|
-| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
-| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
-| user_id             | INT           | User who made the purchase.               |
-| purchase_date       | DATE          |                |
-| date_key            | INT           |                |
-| revenue             | DECIMAL(10,2) |                |
-| channel_last_touch  | NVARCHAR(50)  |                |
-| acquisition_channel | NVARCHAR(50)  |                |
-| acquisition_date    | DATE          |                |
-| acquistiion_campaign| INT           |                |
+| touchpath_key       | INT           | Surrogate key identifying each touchpoint in a journey.                                       |
+| user_id             | INT           | User whose journey is being reconstructed.                                                    |
+| purchase_id         | INT           | Purchase associated with the journey (NULL for non-converters).                               |
+| touchpoint_number   | INT           | Ordering number of the touchpoint within the user journey.                                    |
+| touchpoint_time     | DATETIME2     | Timestamp of the touchpoint.                                                                  |
+| channel             | NVARCHAR(50)  | Channel name of the touchpoint (e.g. Facebook Ads, Email)                                     |
+| campaign_id         | INT           | Marketing campaign associated with the touchpoint.                                            |
+| interaction_type    | NVARCHAR(50)  | Type of interaction recorded (View, Impression, Click)                                        |
   
 ---
-
-
 
 ### 11. **gold.fact_attribution_linear**
-- **Purpose:** 
+- **Purpose:** Apportions revenue equally across all touchpoints in a user’s journey for linear attribution.
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
 |---------------------|---------------|-----------------------------------------------------------------------------------------------|
-| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
-| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
-| user_id             | INT           | User who made the purchase.               |
-| purchase_date       | DATE          |                |
-| date_key            | INT           |                |
-| revenue             | DECIMAL(10,2) |                |
-| channel_last_touch  | NVARCHAR(50)  |                |
-| acquisition_channel | NVARCHAR(50)  |                |
-| acquisition_date    | DATE          |                |
-| acquistiion_campaign| INT           |                |
+| attribution_key     | INT           | Surrogate key for each revenue allocation.                                                    |
+| user_id             | INT           | User related to the purchase.                                                                 |
+| purchase_id         | INT           | Purchase whose revenue is being split.                                                        |
+| channel             | NVARCHAR(50)  | Channel receiving a share of revenue.                                                         |
+| revenue_share       | DECIMAL(10,2) | Revenue portion allocated to this touchpoint.                                                 |
+| total_revenue       | DECIMAL(10,2) | Total purchase revenue.                                                                       |
+| touchpoints_in_path | INT           | Total number of touchpoints in the path.                                                      |
+| purchase_date       | DATE          | Date of the purchase.                                                                         |
   
 ---
 
-
-
 ### 12. **gold.fact_attribution_last_touch**
-- **Purpose:** 
+- **Purpose:** Assigns 100% of purchase revenue to the last touchpoint before conversion for classic last-touch attribution.
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
 |---------------------|---------------|-----------------------------------------------------------------------------------------------|
-| purchase_key        | INT           | Surrogate key uniquely identifying each purchase record.                      |
-| purchase_id         | INT           | Natural purchase identifier representing the purchase event       |
-| user_id             | INT           | User who made the purchase.               |
-| purchase_date       | DATE          |                |
-| date_key            | INT           |                |
-| revenue             | DECIMAL(10,2) |                |
-| channel_last_touch  | NVARCHAR(50)  |                |
-| acquisition_channel | NVARCHAR(50)  |                |
-| acquisition_date    | DATE          |                |
-| acquistiion_campaign| INT           |                |
+| attribution_key     | INT           | Surrogate key for each last-touch allocation.                                                 |
+| user_id             | INT           | User who made the purchase.                                                                   |
+| purchase_id         | INT           | Purchase being attributed.                                                                    |
+| last_touch_channel  | NVARCHAR(50)  | Channel of the last touchpoint.                                                               |
+| last_touch_campaign | INT           | Campaign of the last touchpoint.                                                              |
+| revenue             | DECIMAL(10,2) | Full purchase revenue assigned to this channel.                                               |
+| purchase_date       | DATE          | Date of the purchase.                                                                         |
   
 ---
 
