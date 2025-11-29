@@ -7,6 +7,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 1. **gold.dim_date**
 - **Purpose:** Provides standardized calender dimension that enables time-based analysis, reporting and aggregation.
+- **Grain:**   One row per calendar date
 - **Columns:**
 
 | Column Name      | Data Type     | Description                                                                                   |
@@ -26,6 +27,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 2. **gold.dim_user**
 - **Purpose:** Stores unique user identities so behaviors, conversions, and marketing interactions can be analyzed at customer level.
+- **Grain:**   One row per unique user in the system
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -37,6 +39,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 3. **gold.dim_campaign**
 - **Purpose:** Defines marketing channels and their broader categories to support channel attribution and cross-channel analytics.
+- **Grain:**   One row per unique marketing campaign
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -53,6 +56,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 4. **gold.dim_channel**
 - **Purpose:** Captures all marketing campaigns and their attributes to allow performance reporting and conncection to spend/click/touchpoint data.
+- **Grain:**   One row per distinct marketing channel (e.g. Google Search, Facebook Ads, Email)
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -65,6 +69,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 5. **gold.fact_spend**
 - **Purpose:** Tracks daily marketing spend per campaign and channel to support ROI, budget, and attribution analysis.
+- **Grain:**   One row per daily spend record 
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -82,6 +87,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 6. **gold.fact_clicks**
 - **Purpose:** Stores all ad click events to measure engagement, acquisition efficiency, and campaign performance.
+- **Grain:**   One row per click event
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -99,6 +105,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 7. **gold.fact_sessions**
 - **Purpose:** Captures all website session activity to analyze user behavior, engagement, and channel performance.
+- **Grain:**   One row per web session
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -118,6 +125,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 8. **gold.fact_touchpoints**
 - **Purpose:** Captures all user marketing touchpoints to support multi-touch attribution and journey reconstruction.
+- **Grain:**   One row per touchpoint (between a user and a marketing channel)
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -136,6 +144,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 9. **gold.fact_purchases**
 - **Purpose:** Tracks all customer purchases to measure revenue, conversion behavior, and campaign effectiveness.
+- **Grain:**   One row per purchase
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -155,6 +164,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 10. **gold.fact_touchpath**
 - **Purpose:** Contains all touchpoints ordered per purchase, reconstructs the user’s marketing journey leading up to a purchase.
+- **Grain:**   One row per touchpoint contributing to a purchase 
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -172,6 +182,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 11. **gold.fact_attribution_linear**
 - **Purpose:** Splits revenue equally across all touchpoints in a user’s journey for linear attribution.
+- **Grain:**   One row per revenue-share-assignment per touchpoint per purchase (1 purchase x N touchpoints -> N rows with revenue_share)
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -189,6 +200,7 @@ The Gold Layer is the business-level data representation, structured to support 
 
 ### 12. **gold.fact_attribution_last_touch**
 - **Purpose:** Assigns 100% of purchase revenue to the last touchpoint before conversion for classic last-touch attribution.
+- **Grain:**   One row per single last_touch resulting in a purchase = one row per purchase
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
