@@ -163,7 +163,7 @@ The Gold Layer is the business-level data representation, structured to support 
 ---
 
 ### 10. **gold.fact_touchpath**
-- **Purpose:** Contains all touchpoints ordered per purchase, reconstructs the user’s marketing journey leading up to a purchase.
+- **Purpose:** Contains all touchpoints ordered per purchase, reconstructs the user’s pre-purchase path.
 - **Grain:**   One row per touchpoint contributing to a purchase 
 - **Columns:**
 
