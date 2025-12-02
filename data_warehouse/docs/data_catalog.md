@@ -181,8 +181,8 @@ The Gold Layer is the business-level data representation, structured to support 
 ---
 
 ### 11. **gold.fact_attribution_linear**
-- **Purpose:** Splits revenue equally across all touchpoints in a user’s journey for linear attribution.
-- **Grain:**   One row per revenue-share-assignment per touchpoint per purchase (1 purchase x N touchpoints -> N rows with revenue_share)
+- **Purpose:** For each purchase, revenue is divided evenly among all touchpoints in the use's conversion path.
+- **Grain:**   One row per per touchpoint contributing to a purchase  (1 purchase x N touchpoints -> N rows with revenue_share)
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -190,7 +190,11 @@ The Gold Layer is the business-level data representation, structured to support 
 | attribution_key     | INT           | Surrogate key for each revenue allocation.                                                    |
 | user_id             | INT           | User related to the purchase.                                                                 |
 | purchase_id         | INT           | Purchase whose revenue is being split.                                                        |
+| touchpoint_number   | INT           | Ordering number of the touchpoint within the user journey.                                    |
 | channel             | NVARCHAR(50)  | Channel receiving a share of revenue.                                                         |
+| campaign_id         | INT           | Marketing campaign associated with the touchpoint.                                            |
+| interaction_type    | NVARCHAR(50)  | Type of interaction recorded (View, Impression, Click)                                        |
+| touchpoint_time     | DATETIME2     | Timestamp of the touchpoint.                                                                  |
 | revenue_share       | DECIMAL(10,2) | Revenue portion allocated to this touchpoint.                                                 |
 | total_revenue       | DECIMAL(10,2) | Total purchase revenue.                                                                       |
 | touchpoints_in_path | INT           | Total number of touchpoints in the path.                                                      |
