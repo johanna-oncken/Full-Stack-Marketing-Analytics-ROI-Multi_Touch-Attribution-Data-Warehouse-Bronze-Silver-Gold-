@@ -203,8 +203,8 @@ The Gold Layer is the business-level data representation, structured to support 
 ---
 
 ### 12. **gold.fact_attribution_last_touch**
-- **Purpose:** Assigns 100% of purchase revenue to the last touchpoint before conversion for classic last-touch attribution.
-- **Grain:**   One row per single last_touch resulting in a purchase = one row per purchase
+- **Purpose:** Records final interaction before conversion, assigns 100% of purchase revenue to the last touchpoint (classic last-touch attribution).
+- **Grain:**   One row per **final** touchpoint prior to purchase, representing the final touchpoint to that purcahse
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -212,8 +212,11 @@ The Gold Layer is the business-level data representation, structured to support 
 | attribution_key     | INT           | Surrogate key for each last-touch allocation.                                                 |
 | user_id             | INT           | User who made the purchase.                                                                   |
 | purchase_id         | INT           | Purchase being attributed.                                                                    |
+| touchpoint_number   | INT           | Ordering number of the touchpoint within the user journey.                                    |
+| touchpoint_time     | DATETIME2     | Timestamp when the last touch occured.                                                        |
 | last_touch_channel  | NVARCHAR(50)  | Channel of the last touchpoint.                                                               |
 | last_touch_campaign | INT           | Campaign of the last touchpoint.                                                              |
+| interaction_type    | NVARCHAR(50)  | Type of interaction (View, Impression, Click) recorded at the last touch.                     |            
 | revenue             | DECIMAL(10,2) | Full purchase revenue assigned to this channel.                                               |
 | purchase_date       | DATE          | Date of the purchase.                                                                         |
   
