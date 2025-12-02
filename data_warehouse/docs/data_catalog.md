@@ -163,8 +163,8 @@ The Gold Layer is the business-level data representation, structured to support 
 ---
 
 ### 10. **gold.fact_touchpath**
-- **Purpose:** Contains all touchpoints ordered per purchase, reconstructs the user’s pre-purchase path.
-- **Grain:**   One row per touchpoint contributing to a purchase 
+- **Purpose:** Reconstructs the user’s pre-purchase path.
+- **Grain:**   One row per touchpoint contributing to a purchase
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
@@ -181,8 +181,8 @@ The Gold Layer is the business-level data representation, structured to support 
 ---
 
 ### 11. **gold.fact_attribution_linear**
-- **Purpose:** For each purchase, revenue is divided evenly among all touchpoints in the use's conversion path.
-- **Grain:**   One row per per touchpoint contributing to a purchase  (1 purchase x N touchpoints -> N rows with revenue_share)
+- **Purpose:** Takes the journey data from fact_touchpath and computes the linear revenue share. For each purchase, revenue is divided evenly among all touchpoints in the use's conversion path.
+- **Grain:**   One row per per **attributed** touchpoint contributing to a purchase  (1 purchase x N touchpoints -> N rows with revenue_share)
 - **Columns:**
 
 | Column Name         | Data Type     | Description                                                                                   |
