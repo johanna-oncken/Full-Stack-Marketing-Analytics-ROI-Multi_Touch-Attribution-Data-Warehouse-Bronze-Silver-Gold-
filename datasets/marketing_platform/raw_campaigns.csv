@@ -1,0 +1,54 @@
+campaign_id,campaign_name,channel,start_date,end_date,objective
+1,,tik_tok_ads,2024-01-23,2024-03-01,CONVERSION
+2,Spring_Prospecting_EU,Google Display,2023-12-07,2023-12-17,
+3,Summer_Launch,Facebok Ads,2024-02-26,18/05/2024,Awareness
+4,Lookalike_3pct_DE,GOOGLE SEARCH,2024-02-04,2024-02-24,Traffic
+5,Holiday_Special,Facebook Ads,2024-02-12,2024-02-29,Conversion
+6,SEO_Boost,Google Search,2023-12-14,2023-12-26,Awareness
+7,Retention_Push,Google Search,2024-02-09,2024-03-07,Traffic
+8,SEO_Boost,tik_tok_ads,2024-03-13,2024-06-21,Traffic
+9,Brand_Awareness_Q1,Google Display,2023-12-11,2024-01-16,Traffic
+10,SEO_Boost,Facebook Ads,2024-01-31,2024-03-05,conversion
+11,SUMMER_RETARGETING,Google Display,2024-03-19,2024-06-02,Conversion
+12,SUMMER_RETARGETING,Instagram Ads,2023-12-18,2024-03-30,Conversion
+13,,Google Search,not_available,2024-05-06,Conversion
+14,Spring_Prospecting_EU,Google Display,2024-03-14,2024-06-25,Awareness
+15,,Facebook Ads,2024-01-21,2024-04-01,awareness
+16,Summer_Launch,TikTok Ads,2023-12-30,2024-02-22,Conversion
+17,Flash_Sale_Weekend,Google Display,22/12/2023,2024-02-13,Traffic
+18,SEO_Boost,Google Display,2023-12-17,2024-03-26,Conversion
+19,Holiday_Special,Google Display,2024-01-02,2024-02-11,Awareness
+20,Lookalike_3pct_DE,FB Ads,11/02/2024,2024-04-14,Awareness
+21,Winter_Sale_2024,Google  Search,2024-01-14,2024-04-05,conversion
+22,Winter_Sale_2024,TikTok Ads,2023-12-14,2024-02-24,Awareness
+23,SEO_Boost,Instagram Ads,2024-03-01,2024-06-19,Conversion
+24,Retention_Push,fb_ads,2023-12-11,2024-03-13,Awareness
+25,Spring_Prospecting_EU,Google Search,2024-01-06,2024-03-21,Traffic
+26,Holiday_Special,google display,2024-03-16,not_available,Awareness
+27,SUMMER_RETARGETING,Instagram Ads,03/03/2024,2024/04/06,Awareness
+28,Lookalike_3pct_DE,Instgram Ads,2024-02-27,not_available,Conversion
+29,SUMMER_RETARGETING,Googel Search,2024-01-12,2024-01-26,Conversion
+30,SEO_Boost,Google Search,2024-03-13,2024-04-09,Awareness
+31,Brand_Awareness_Q1,tik_tok_ads,2024-03-20,2024-04-27,Awareness
+32,SEO_Boost,fb_ads,2024-01-20,2024-02-22,Traffic
+33,Holiday_Special,google display,2023-12-15,not_available,Awareness
+34,Summer_Launch,TikTok Ads,2024-02-06,2024-06-04,Traffic
+35,Lookalike_3pct_DE,Google Display,2024-03-12,2024-03-20,conv
+36,Lookalike_3pct_DE,Facebook Ads,2023-12-21,2024-04-01,Conversion
+37,Brand_Awareness_Q1,instagram ads,2024-01-21,2024/04/01,awareness
+38,,TikTok Ads,2024-02-03,not_available,Awareness
+39,Retention_Push,Facebook Ads,2023/12/22,2024-01-07,Awareness
+40,SEO_Boost,google display,2024-02-22,2024-03-16,Awareness
+41,Brand_Awareness_Q1,Google Display,2024-02-07,23/05/2024,Conversion
+42,SUMMER_RETARGETING,Instagram Ads,2024-01-04,2024-05-02,TRAFFIC
+43,Brand_Awareness_Q1,Instagram Ads,21/12/2023,14/02/2024,Awareness
+44,Flash_Sale_Weekend,Google Search,2024-01-14,2024-02-18,TRAFFIC
+45,Lookalike_3pct_DE,Google Search,2024-03-08,2024-05-05,Traffic
+46,Lookalike_3pct_DE,Instagram Ads,2024-01-21,2024-02-01,Conversion
+47,SEO_Boost,Google  Search,23/12/2023,2024-02-17,Awareness
+48,Summer_Launch,Instagram Ads,2024-03-14,2024-06-16,Conversion
+49,Spring_Prospecting_EU,TikTok Ads,2024-02-03,2024-04-29,Conversion
+50,Lookalike_3pct_DE,insta_Ads,2024-02-02,2024-03-31,awarenss
+51,SUMMER_RETARGETING,TikTok Ads,2024-01-28,2024-03-26,Traffic
+52,SEO_Boost,Google Display,2024-02-29,2024-05-02,Traffic
+53,Spring_Prospecting_EU,Google Display,2024-03-30,not_available,Awareness
