@@ -23,7 +23,8 @@ Queries:
     4.3) Top Ten Channels by Monthly CTR Declines
 
 💡 Disclaimer: 
-    Due to synthetic data there are a lot more clicks than there are impressions resulting in a CTR > 100% 
+    Due to synthetic data, there are a lot more clicks than there are impressions, resulting in a CTR > 100% .
+    Therefore, we should see the CTR results more as click intensity than as "CTR"(click rate).
 
 ===============================================================================
 */
